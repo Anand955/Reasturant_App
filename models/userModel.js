@@ -22,11 +22,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'phone number is required']
   },
-  usertype:{
-    type:String,
-    required: [true, 'user type is required'],
-    default: 'clienet',
-    enum: ['clinet', 'admin', 'vendor', 'driver' ]
+  usertype: {
+    type: String,
+    required: [true, 'User type is required'],
+    default: 'client',
+    enum: ['client', 'admin', 'vendor', 'driver'] // Make sure these are correct
   },
   profile:{
     type: String,
@@ -36,4 +36,4 @@ const userSchema = new mongoose.Schema({
 }, {timestamps:true})
 
 //export
-module.export = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)
