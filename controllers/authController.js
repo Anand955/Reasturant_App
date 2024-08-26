@@ -1,6 +1,6 @@
 const userModel = require("../models/userModel");
-const bcrypt = require('bcrypt')
-const JWT = require('jsonwebtoken')
+const bcrypt = require("bcrypt");
+const JWT = require("jsonwebtoken");
 
 // REGISTER
 const registerController = async (req, res) => {
@@ -31,7 +31,7 @@ const registerController = async (req, res) => {
     const newUser = await userModel.create({
       userName,
       email,
-      password:hashedPassword,
+      password: hashedPassword,
       address,
       phone,
     });
@@ -65,7 +65,7 @@ const loginController = async (req, res) => {
     }
 
     // Check if user exists
-    const user = await userModel.findOne({ email});
+    const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -74,7 +74,7 @@ const loginController = async (req, res) => {
     }
 
     // Check password (here it should be compared to hashed password, if hashing is used)
-    const isMatch = await bcrypt.compare(password, user.password)
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(500).send({
         success: false,
@@ -83,9 +83,9 @@ const loginController = async (req, res) => {
     }
 
     //token
-    const token = JWT.sign({id:user._id}, process.env.JWT_SECRET,{
+    const token = JWT.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
-    })
+    });
 
     user.password = undefined;
 
